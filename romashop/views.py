@@ -56,8 +56,8 @@ def get_cart(request):
     else:
         customer = None
 
-    if request.method == 'POST': # If the form has been submitted...
-        form = CustomerForm(request.POST) # A form bound to the POST data
+    if request.method == 'POST':
+        form = CustomerForm(request.POST)
         order_form = OrderForm(request.POST)
         if form.is_valid(): # All validation rules pass
             cstm = form.save(commit=False)
@@ -69,10 +69,11 @@ def get_cart(request):
                 oform.customer = cstm
                 oform.summary = cart.summary()
                 oform.save()
+                # TODO: SAVE CART TO ORDER DETAIL
                 cart.clear()
-                return HttpResponseRedirect('/') # Redirect after POST
+                return HttpResponseRedirect('/') # TODO THANKS
     else:
-        form = CustomerForm(instance=customer) # An unbound form
+        form = CustomerForm(instance=customer)
         order_form = OrderForm()
 
     return direct_to_template(request, 'romashop/cart_detail.html', {'cart':cart, 'form':form, 'order_form':order_form})
