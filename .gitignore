@@ -1,0 +1,11 @@
+*.pyc
+*.pyo
+
+.directory
+password.py
+secret.txt
+test.db
+
+static
+media
+
