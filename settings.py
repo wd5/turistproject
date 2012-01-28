@@ -114,6 +114,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'pagination.middleware.PaginationMiddleware',
 )
 
 ROOT_URLCONF = 'app.urls'
@@ -130,6 +131,8 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'south',
     'registration',
+    'sorl.thumbnail',
+    'pagination',
 
     'romastyle',
     'dbtemplates',
@@ -142,6 +145,8 @@ INSTALLED_APPS = (
     'callquery',
     'reviews',
     'fgallery',
+
+    'seo',
 )
 
 # SECRET_KEY
@@ -183,6 +188,12 @@ LOGGING = {
         },
     }
 }
+
+PAGINATION_DEFAULT_PAGINATION = 10
+
+SEO_FOR_MODELS = [
+    'romashop.models.Product', 'romashop.models.Category', 'django.contrib.flatpages.models.FlatPage'
+]
 
 # LOCAL SETTINGS
 import socket

@@ -43,6 +43,6 @@ def get_latest_public(parser, token):
         raise TemplateSyntaxError, "get_latest tag takes exactly four arguments"
     if bits[3] != 'as':
         raise TemplateSyntaxError, "third argument to get_latest_comments tag must be 'as'"
-    return LatestContentNode(bits[1], bits[2], bits[4])
+    return LatestPublicContentNode(bits[1], bits[2], bits[4])
     
-get_latest = register.tag(get_latest)
+get_latest_public = register.tag(get_latest_public)

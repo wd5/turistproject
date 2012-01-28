@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load thumbnail %}
+
+{% block breadcrumbs %}
+- Корзина
+{% endblock %}
+
+{% block content %}
+
+    <table>
+        <tr>
+            <th width=300>Наименование</th>
+            <th>Цена</th>
+            <th>X</th>
+            <th>Стоимость</th>
+            <th>Удаление</th>
+        </tr>
+        {% for item in cart %}
+        <tr>
+            <td>{{ item.product.title }}</td>
+            <td>{{ item.product.price }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.total_price }}</td>
+            <td><a href="{% url cart_remove item.product.id %}">Удалить</a></td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+        <p>Итог: {{ cart.summary }}</p>
+
+        <p><a href="{% url cart_clear %}">Очистить корзину</a></p>
+
+
+{% endblock %}

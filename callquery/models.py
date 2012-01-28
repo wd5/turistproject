@@ -8,7 +8,7 @@ class CallQuery(models.Model):
     datetime_added = models.DateTimeField(verbose_name='Время заказа', auto_now_add=True)
     datetime_completed = models.DateTimeField(verbose_name='Время исполнения', blank=True, null=True)
     completed = models.BooleanField(verbose_name='Выполнен', default=False)
-    description = models.TextField(verbose_name='Описание', blank=True)
+    description = models.TextField(verbose_name='Замечания', blank=True)
 
     def __unicode__(self):
         return u"%s" % (self.name)

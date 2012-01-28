@@ -55,6 +55,11 @@ class Product(models.Model):
     def __unicode__(self):
         return "%s" % (self.title)
 
+    @models.permalink
+    def get_absolute_url(self):
+        """Return category's URL"""
+        return ('product_detail', [unicode(self.slug)])
+
 
 class Category(MPTTModel):
 
@@ -72,6 +77,11 @@ class Category(MPTTModel):
 
     def __unicode__(self):
         return "%s" % (self.name)
+
+    @models.permalink
+    def get_absolute_url(self):
+        """Return category's URL"""
+        return ('product_category', [unicode(self.slug)])
 
 
 SUBMITTED = 0
@@ -123,8 +133,8 @@ class OrderDetail(models.Model):
         return "%s - %s" % (self.order, self.product)
 
     class Meta:
-        verbose_name = "Заказ-товар"
-        verbose_name_plural = "Заказы-товары"
+        verbose_name = "Заказ-подробности"
+        verbose_name_plural = "Заказы-подробности"
 
 
 class PaymentMethod(models.Model):

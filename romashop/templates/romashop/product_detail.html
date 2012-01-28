@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load thumbnail %}
+
+{% block breadcrumbs %}
+- Продукт
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ object.title }}</h1>
+
+<p><img src="{% thumbnail object.images.get_cover_image 200x200 %}" /><br />
+<p>Цена: <span class="unit-price">{{object.price}} р</span> {% if object.old_price %}<strike>{{object.old_price}} р</strike>{% endif %}</p>
+<p><a href="{% url cart_add object.id 1 %}">Купить</a></p>
+<p>{{object.short_description}}</p>
+{% if object.long_description %}<p><b>Подробности:</b></p>
+<p>{{object.long_description}}</p>
+{% endif %}
+
+
+{% endblock %}

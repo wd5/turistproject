@@ -5,14 +5,15 @@ from django.contrib.auth.models import User
 from reviews.managers import PublicManager
 
 class Review(models.Model):
-    user = models.ForeignKey(User, blank=True, null=True)
-    is_published = models.BooleanField(default=True)
+    user = models.ForeignKey(User, verbose_name="Пользователь", blank=True, null=True)
+    is_published = models.BooleanField("Опубликовано", default=True)
+    datetime_added = models.DateTimeField(verbose_name='Дата и время', auto_now_add=True)
 
-    name = models.CharField(verbose_name='ФИО', max_length=100)
+    name = models.CharField(verbose_name='Имя', max_length=100)
+    text = models.TextField(verbose_name='Отзыв')
     email = models.CharField(verbose_name='E-mail', max_length=100, blank=True)
-    datetime_added = models.DateTimeField(verbose_name='Время заказа', auto_now_add=True)
-    text = models.TextField(verbose_name='Описание')
-    image = models.ImageField(upload_to='reviews/', blank=True, null=True)
+    link = models.CharField(verbose_name='Ссылка', max_length=100, blank=True)
+    image = models.ImageField("Изображение", upload_to='reviews/', blank=True, null=True)
 
     objects = PublicManager()
 

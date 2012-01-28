@@ -1,4 +1,4 @@
-{% load latest_content %}
+{% load latest_content thumbnail cart_tags %}
 
 <!DOCTYPE html>
 <html>
@@ -44,8 +44,10 @@
     <ul style="float: left">
         <li><a href="/">Главная</a></li>
         <li><a href="/products/">Товары</a></li>
-        <li><a href="/info/">Оплата и доставка</a></li>
         <li><a href="/articles/">Статьи</a></li>
+        <li><a href="/info/">Оплата и доставка</a></li>
+        <li><a href="/warranty/">Гарантия</a></li>
+        <li><a href="/partner/">Партнерам</a></li>
         <li><a href="/about/">О нас</a></li>
         <li><a href="/contacts/">Контакты</a></li>
     </ul>
@@ -65,7 +67,7 @@
 {% full_tree_for_model romashop.Category as nodes %}
     {% recursetree nodes %}
         <li>
-            {{ node.name }}
+            <a href="{{ node.get_absolute_url }}">{{ node.name }}</a>
             {% if not node.is_leaf_node %}
                 <ul class="children">
                     {{ children }}
@@ -85,6 +87,25 @@
 
 <div id="content">
 {% block content %}
+
+<h2>Последние поступления</h2>
+{% get_latest_public romashop.Product 5 as last_products %}
+<ul>
+{% for object in last_products %}
+<li>
+
+<h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2><br />
+
+<img src="{% thumbnail object.images.get_cover_image 100x100 %}" /><br />
+
+<p><span class="description">{{ object.short_description }}</p>
+
+<a href="{{ object.get_absolute_url }}">Подробнее</a> <a href="{% url cart_add object.id 1 %}">Купить</a>
+
+
+</li>
+{% endfor %}
+</ul>
 {% endblock %}
 </div><!-- #content -->
 
@@ -92,6 +113,16 @@
 
 <div id="sidebar" class="rounded">
 {% block sidebar %}
+
+<div id="cart">
+    <h3>Корзина</h3>
+    {% get_cart as cart %}
+    <ul>
+    <li><a href="/checkout/">Товары: {{ cart.count }}<br />Сумма: {{ cart.summary }}</a></li>
+    <li><div id="callbutton" class="rounded"><a href="/checkout/">Оформить заказ</a></div></li>
+    </ul>
+</div>
+
 {% if user.is_authenticated %}
 <div id="orders">
     <h3>Заказы</h3>
@@ -101,14 +132,6 @@
 </div>
 {% endif %}
 
-<div id="cart">
-    <h3>Корзина</h3>
-    <ul>
-    <li>...</li>
-    <li><div id="callbutton" class="rounded"><a href="/checkout/">Оформить заказ</a></div></li>
-    </ul>
-</div>
-
 <div id="reviews">
     <h3>Отзывы</h3>
     <ul>
@@ -116,7 +139,7 @@
     {% for object in reviews_list %}
     <li><i>{{ object.name }}</i>:<br />{{ object.text }}</li>
     {% endfor %}
-    <li><div id="callbutton" class="rounded"><a href="/reviews/add/">Оставить отзыв</a></div></li>
+    <li><a href="/reviews/add/">Оставить отзыв</a></li>
     </ul>
 </div>
 {% endblock %}

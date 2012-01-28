@@ -21,8 +21,8 @@ class PhotoInline(admin.TabularInline):
 class AlbumAdmin(admin.ModelAdmin):
     #exclude = ["author"]
     raw_id_fields = ["cover"]
-    list_display = ["get_cover", "is_published"]
-    list_editable = ["is_published"]    
+    list_display = ["get_cover", "title", "is_published"]
+    list_editable = ["title", "is_published"]    
     inlines = [PhotoInline,]
 
 class PhotoAdmin(admin.ModelAdmin):
@@ -34,7 +34,6 @@ class PhotoAdmin(admin.ModelAdmin):
 
     fieldsets = [
         (None,               {'fields': ['is_published','album','image','title']}),
-        ('Additional', {'fields': [], 'classes': ['collapse']}),
     ]
 
     def save_model(self, request, obj, form, change):
