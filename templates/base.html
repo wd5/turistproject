@@ -1,3 +1,5 @@
+{% load latest_content %}
+
 <!DOCTYPE html>
 <html>
 
@@ -89,6 +91,17 @@
     <ul>
     <li>...</li>
     <li><div id="callbutton" class="rounded"><a href="/checkout/">Оформить заказ</a></div></li>
+    </ul>
+</div>
+
+<div id="reviews">
+    <h3>Отзывы</h3>
+    <ul>
+    {% get_latest reviews.review 5 as reviews_list %}
+    {% for object in reviews_list %}
+    <li><i>{{ object.name }}</i>:<br />{{ object.text }}</li>
+    {% endfor %}
+    <li><div id="callbutton" class="rounded"><a href="/reviews/add/">Оставить отзыв</a></div></li>
     </ul>
 </div>
 {% endblock %}

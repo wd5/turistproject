@@ -8,6 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^callquery/', include('callquery.urls')),
+    url(r'^reviews/', include('reviews.urls')),
 
     url(r'^accounts/', include('registration.urls')),
 

@@ -135,7 +135,9 @@ INSTALLED_APPS = (
     'dbtemplates',
     'fcss',
 
+    'romautils',
     'callquery',
+    'reviews',
 )
 
 # SECRET_KEY
