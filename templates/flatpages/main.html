@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ flatpage.title }}{% endblock %}
+{% load seo_tags %}
+
+{% block title %}{% seo title for flatpage as seo_title %}{% if seo_title %}{{ seo_title }}{% else %}{{ flatpage.title }}{% endif %}{% endblock %}
+
+{% block description %}{% seo description for flatpage %}{% endblock %}
 
 {% block content %}
 <h1>{{ flatpage.title }}</h1>

@@ -5,7 +5,8 @@
 from django.views.generic.simple import direct_to_template
 from django.http import HttpResponseRedirect
 from cart import Cart
-from romashop.models import Product, Category
+from romashop.models import Product, Category, Customer
+from romashop.forms import CustomerForm, OrderForm
 
 def product_list(request):
     products = Product.objects.published()
@@ -44,4 +45,34 @@ def remove_from_cart(request, product_id):
     return HttpResponseRedirect('/checkout/')
 
 def get_cart(request):
-    return direct_to_template(request, 'romashop/cart_detail.html', dict(cart=Cart(request)))
+
+    cart = Cart(request)
+
+    if request.user.is_authenticated():
+        try:
+            customer = Customer.objects.get(user=request.user)
+        except:
+            customer = None
+    else:
+        customer = None
+
+    if request.method == 'POST': # If the form has been submitted...
+        form = CustomerForm(request.POST) # A form bound to the POST data
+        order_form = OrderForm(request.POST)
+        if form.is_valid(): # All validation rules pass
+            cstm = form.save(commit=False)
+            if request.user.is_authenticated():
+                cstm.user = request.user
+            cstm.save()
+            if order_form.is_valid():
+                oform = order_form.save(commit=False)
+                oform.customer = cstm
+                oform.summary = cart.summary()
+                oform.save()
+                cart.clear()
+                return HttpResponseRedirect('/') # Redirect after POST
+    else:
+        form = CustomerForm(instance=customer) # An unbound form
+        order_form = OrderForm()
+
+    return direct_to_template(request, 'romashop/cart_detail.html', {'cart':cart, 'form':form, 'order_form':order_form})

@@ -11,7 +11,7 @@ from datetime import datetime
 
 class Customer(models.Model):
 
-    author = models.ForeignKey(User, blank=True, null=True)
+    user = models.ForeignKey(User, verbose_name="Пользователь", blank=True, null=True)
     name = models.CharField("ФИО", max_length=100)
     email = models.EmailField("Email")
     phone = models.CharField("Телефон", max_length=50)
@@ -107,7 +107,7 @@ ORDER_STATES = [
 class Order(models.Model):
 
     customer = models.ForeignKey(Customer)
-    number = models.CharField("Номер", max_length=70)
+    number = models.CharField("Номер", max_length=70, default='0')
     date_created = models.DateTimeField("Дата создания", auto_now_add=True)
     shipping_method = models.ForeignKey('ShippingMethod', verbose_name="Доставка", blank=True, null=True)
     payment_method = models.ForeignKey('PaymentMethod', verbose_name="Оплата", blank=True, null=True)
@@ -125,9 +125,10 @@ class Order(models.Model):
 class OrderDetail(models.Model):
 
     order = models.ForeignKey(Order, related_name="items")
-    product = models.ForeignKey(Product, blank=True, null=True)
+    product = models.ForeignKey(Product)
     price = models.DecimalField("Цена", max_digits=12, decimal_places=2)
-    product_amount = models.FloatField("Количество", blank=True, null=True)
+    quantity = models.FloatField("Количество")
+    total_price = models.DecimalField("Цена", max_digits=12, decimal_places=2)
 
     def __unicode__(self):
         return "%s - %s" % (self.order, self.product)
@@ -139,10 +140,10 @@ class OrderDetail(models.Model):
 
 class PaymentMethod(models.Model):
 
-    title = models.CharField("Номер", max_length=70)
-    position = models.PositiveIntegerField(default=0)
-    tax = models.DecimalField("Значение", max_digits=12, decimal_places=2)
-    is_percent = models.BooleanField(default=False)
+    title = models.CharField("Название", max_length=70)
+    tax = models.DecimalField("Значение", max_digits=12, decimal_places=2, default=0.0)
+    is_percent = models.BooleanField("В процентах", default=False)
+    position = models.PositiveIntegerField("Позиция в списке", default=0)
 
     def __unicode__(self):
         return "%s" % (self.title)
@@ -154,10 +155,10 @@ class PaymentMethod(models.Model):
 
 class ShippingMethod(models.Model):
 
-    title = models.CharField("Номер", max_length=70)
-    position = models.PositiveIntegerField(default=0)
-    tax = models.DecimalField("Значение", max_digits=12, decimal_places=2)
-    is_percent = models.BooleanField(default=False)
+    title = models.CharField("Название", max_length=70)
+    tax = models.DecimalField("Значение", max_digits=12, decimal_places=2, default=0.0)
+    is_percent = models.BooleanField("В процентах", default=False)
+    position = models.PositiveIntegerField("Позиция в списке", default=0)
 
     def __unicode__(self):
         return "%s" % (self.title)

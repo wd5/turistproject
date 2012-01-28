@@ -2,9 +2,14 @@
 
 from django.db import models
 from django import forms
-from romashop.models import Order
+from romashop.models import Order, Customer
+
+class CustomerForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        exclude = ('user')
 
 class OrderForm(forms.ModelForm):
     class Meta:
-        model = Customer
-        fields = ('name','email','text')
+        model = Order
+        fields = ('shipping_method', 'payment_method')
