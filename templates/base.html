@@ -3,20 +3,109 @@
 
 <head>
 <title>{% block title %}{% endblock %}</title>
+
+<meta name="description" content="{% block description %}{% endblock %}"/>
+<meta name="keywords" content="{% block keywords %}{% endblock %}" />
+
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/base.css" />
+
+{% block extra_head %}{% endblock %}
 </head>
 
 <body>
-{% block header %}
-{% endblock %}
 
+<div id="header">
+{% block header %}
+<div id="sitetitle"><a href="/">Интернет-магазин<br /> NP-Tour</a></div>
+<div id="siteslogan">работаем быстро и качественно</div>
+
+<div id="callinfo" class="rounded">Есть вопросы? Звоните<br /> <big><big><strong>+7-987-654-3210</strong></big></big><br />
+<div id="callbutton" class="rounded"><a href="{% url callquery %}">Заказать звонок</a></div>
+</div>
+
+<div id="profile">
+    <ul>
+      
+    {% if not user.is_authenticated %}
+         <li><a href="{% url registration_register %}?next={{ request.path }}">Регистрация</a></li>
+         <li><a href="{% url auth_login %}?next={{ request.path }}">Вход</a></li>
+    {% else %}
+         <li><b>{{ user.username }}</b></li>
+         {% if user.is_staff %}<li><a href="{% url admin:index %}">Админка</a></li>{% endif %}
+         <li><a href="{% url auth_logout %}?next={{ request.path }}">Выход</a></li>
+    {% endif %}
+    </ul>
+</div>
+
+<div id="sitemenu" class="rounded">
+
+    <ul style="float: left">
+        <li><a href="/">Главная</a></li>
+        <li><a href="/products/">Товары</a></li>
+        <li><a href="/info/">Оплата и доставка</a></li>
+        <li><a href="/articles/">Статьи</a></li>
+        <li><a href="/about/">О нас</a></li>
+        <li><a href="/contacts/">Контакты</a></li>
+    </ul>
+
+</div>
+{% endblock %}
+</div><!-- #header -->
+
+<div id="main-wrapper">
+{% block main %}
+
+<div id="mainbar" class="rounded">
+{% block mainbar %}
+{% endblock %}
+</div><!-- #leftbar -->
+
+<div id="content-wrapper">
+
+<div id="breadcrumbs"><a href="/">Главная</a>
+{% block breadcrumbs %} - Добро пожаловать!{% endblock %}
+</div><!-- #breadcrumbs -->
+
+<div id="content">
 {% block content %}
 {% endblock %}
+</div><!-- #content -->
 
+</div><!-- #content-wrapper -->
+
+<div id="sidebar" class="rounded">
 {% block sidebar %}
-{% endblock %}
+{% if user.is_authenticated %}
+<div id="orders">
+    <h3>Заказы</h3>
+    <ul>
+      <li><a href="/orders/">Мои заказы</a></li>
+    </ul>
+</div>
+{% endif %}
 
-{% block footer %}
+<div id="cart">
+    <h3>Корзина</h3>
+    <ul>
+    <li>...</li>
+    <li><div id="callbutton" class="rounded"><a href="/checkout/">Оформить заказ</a></div></li>
+    </ul>
+</div>
 {% endblock %}
+</div><!-- #sidebar -->
+
+{% endblock %}{# main #}
+<div class="clearfix"></div>
+</div><!-- #main-wrapper -->
+
+<div id="footer" class="rounded">
+{% block footer %}
+<div id="copyright">(c) автор, 2011</div>
+<div id="author">разработка</div>
+<div class="clearfix"></div>
+{% endblock %}
+</div><!-- #footer -->
+
 </body>
 
 </html>

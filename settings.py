@@ -84,6 +84,7 @@ STATICFILES_FINDERS = (
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
+    'dbtemplates.loader.Loader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
@@ -127,6 +128,14 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # 'django.contrib.admindocs',
     'django.contrib.flatpages',
+    'south',
+    'registration',
+
+    'romastyle',
+    'dbtemplates',
+    'fcss',
+
+    'callquery',
 )
 
 # SECRET_KEY

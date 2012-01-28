@@ -7,6 +7,10 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^callquery/', include('callquery.urls')),
+
+    url(r'^accounts/', include('registration.urls')),
+
     # Examples:
     # url(r'^$', 'app.views.home', name='home'),
     # url(r'^app/', include('app.foo.urls')),
