@@ -3,10 +3,9 @@
 
 from django.contrib import admin
 from django import forms
-from models import Photo, Album, Video
+from models import Photo, Album
 from form_utils.widgets import ImageWidget
 from django.contrib.contenttypes import generic
-from fevents.models import EventRelation
 
 
 class PhotoForm(forms.ModelForm):
@@ -17,31 +16,25 @@ class PhotoForm(forms.ModelForm):
 class PhotoInline(admin.TabularInline):
     model = Photo
     form = PhotoForm
-    fields = ('image', 'author', 'title')
+    fields = ('image', 'title')
 
 class AlbumAdmin(admin.ModelAdmin):
-    date_hierarchy = 'date'
     #exclude = ["author"]
-    search_fields = ["title"]
     raw_id_fields = ["cover"]
-    list_display = ["get_cover", "title", "date", "is_published"]
-    list_editable = ["title", "is_published"]    
-    list_filter = ["date"]
-    prepopulated_fields = {"slug": ("title",)}
+    list_display = ["get_cover", "is_published"]
+    list_editable = ["is_published"]    
     inlines = [PhotoInline,]
 
 class PhotoAdmin(admin.ModelAdmin):
-    exclude = ['author']
-    date_hierarchy = 'date'		
     search_fields = ["title"]
-    list_display = ["image_thumb", "title", "date", "album", "position"]
-    list_editable = ["title", "album", "position"]
-    list_filter = ["date", "album"]
+    list_display = ["image_thumb", "title", "album"]
+    list_editable = ["title", "album"]
+    list_filter = ["album"]
     #prepopulated_fields = {"slug": ("title",)}
 
     fieldsets = [
         (None,               {'fields': ['is_published','album','image','title']}),
-        ('Additional', {'fields': ['date','position','is_cover','rating','enable_comments',], 'classes': ['collapse']}),
+        ('Additional', {'fields': [], 'classes': ['collapse']}),
     ]
 
     def save_model(self, request, obj, form, change):
@@ -51,4 +44,3 @@ class PhotoAdmin(admin.ModelAdmin):
     
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Album, AlbumAdmin)
-admin.site.register(Video)

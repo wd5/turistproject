@@ -135,9 +135,13 @@ INSTALLED_APPS = (
     'dbtemplates',
     'fcss',
 
+    'romashop',
+    'cart',
+    'mptt',
     'romautils',
     'callquery',
     'reviews',
+    'fgallery',
 )
 
 # SECRET_KEY

@@ -4,10 +4,8 @@
 from django.db import models
 from datetime import datetime
 
-from tagging.fields import TagField
 #from sorl.improved.fields import ImprovedImageWithThumbnailsField
 from django.contrib.auth.models import User
-from fevents.models import Event
 from fgallery.managers import PublicManager
 
 from django.contrib.contenttypes.models import ContentType
@@ -21,21 +19,13 @@ from sorl.thumbnail.main import DjangoThumbnail
 
 class Album(models.Model):
     # publishing fields
-    author = models.ForeignKey(User)
-    is_published = models.BooleanField(default=True)
-    date_publish = models.DateTimeField(default=datetime.now)
-    date_modified = models.DateTimeField(auto_now=True)
+    is_published = models.BooleanField("Опубликовано", default=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(max_length=70)
+    date_modified = models.DateTimeField(auto_now=True)
 
     # core fields
-    cover = models.ForeignKey('Photo', related_name='album_cover', blank=True, null=True)
-    date = models.DateTimeField(default=datetime.now)
-    title = models.CharField(max_length=70)
-    description = models.TextField(blank=True)
-    position = models.IntegerField(default=0)
-
-    enable_comments = models.BooleanField(default=True)
+    title = models.CharField("Заголовок", max_length=100, blank=True)
+    cover = models.ForeignKey('Photo', verbose_name="Главное изображение", related_name='album_cover', blank=True, null=True)
 
     objects = PublicManager()
 
@@ -44,8 +34,7 @@ class Album(models.Model):
         verbose_name_plural = "альбомы"
 
     def __unicode__(self):
-        dt = unicode(self.date)[:10]
-        return "[%s]-%s" % (dt, self.title)
+        return "%s" % (self.id)
 
     def images(self):
         lst = [x.image for x in self.photo_set.all().order_by('date')]
@@ -82,20 +71,15 @@ class Album(models.Model):
 
 class Photo(models.Model):
     # publishing fields
-    author = models.ForeignKey(User)
-    is_published = models.BooleanField(default=True)
-    date_publish = models.DateTimeField(default=datetime.now)
+    is_published = models.BooleanField("Опубликовано", default=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
     # core fields
-    album = models.ForeignKey(Album, blank=True, null=True)
-    image = models.ImageField(upload_to='gallery/')
-    title = models.CharField(max_length=70)
-    description = models.TextField(blank=True)
-    position = models.IntegerField(default=0)
-
-    enable_comments = models.BooleanField(default=True)
+    album = models.ForeignKey(Album, verbose_name='Альбом', blank=True, null=True)
+    image = models.ImageField("Изображение", upload_to='gallery/')
+    title = models.CharField("Заголовок", max_length=100, blank=True)
+    position = models.IntegerField("Позиция", default=0)
 
     objects = PublicManager()
 
@@ -124,8 +108,7 @@ class Photo(models.Model):
         verbose_name_plural = "фотографии"
 
     def __unicode__(self):
-        dt = unicode(self.date)[:10]
-        return "%s-[%s]-%s" % (self.id, dt, self.title)
+        return "%s" % (self.id)
 
     def image_thumb(self):
         if self.image:

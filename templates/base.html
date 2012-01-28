@@ -59,6 +59,21 @@
 
 <div id="mainbar" class="rounded">
 {% block mainbar %}
+{% load mptt_tags latest_content %}
+<h3>Категории</h3>
+<ul>
+{% full_tree_for_model romashop.Category as nodes %}
+    {% recursetree nodes %}
+        <li>
+            {{ node.name }}
+            {% if not node.is_leaf_node %}
+                <ul class="children">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>
 {% endblock %}
 </div><!-- #leftbar -->
 

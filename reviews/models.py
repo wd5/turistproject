@@ -12,6 +12,7 @@ class Review(models.Model):
     email = models.CharField(verbose_name='E-mail', max_length=100, blank=True)
     datetime_added = models.DateTimeField(verbose_name='Время заказа', auto_now_add=True)
     text = models.TextField(verbose_name='Описание')
+    image = models.ImageField(upload_to='reviews/', blank=True, null=True)
 
     objects = PublicManager()
 
