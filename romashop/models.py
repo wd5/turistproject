@@ -188,6 +188,9 @@ class Order(models.Model):
     def __unicode__(self):
         return u"[%s] %s" % (self.number, self.customer)
 
+    def get_number(self, id):
+        return u"%s" % ("N" + unicode(int(id) + 10000))
+
     class Meta:
         verbose_name = "Заказ"
         verbose_name_plural = "Заказы"

@@ -108,6 +108,8 @@ def get_cart(request):
                 new_order.customer = new_customer
                 new_order.summary = cart.summary()
                 new_order.save()
+                new_order.number = new_order.get_number(new_order.id)
+                new_order.save()
                 # SAVE CART TO ORDER DETAIL
                 for item in cart:
                     new_item = OrderDetail()
