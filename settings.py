@@ -142,9 +142,9 @@ INSTALLED_APPS = (
     'cart',
     'mptt',
     'romautils',
-    'callquery',
-    'reviews',
-    'fgallery',
+    #'callquery',
+    #'reviews',
+    #'fgallery',
 
     'seo',
 )

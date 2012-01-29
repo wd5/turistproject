@@ -9,4 +9,6 @@ urlpatterns = patterns('romashop.views',
     url(r'^cart/remove/(?P<product_id>\d+)/$', view='remove_from_cart', name='cart_remove'),
     url(r'^cart/clear/$', view='clear_cart', name='cart_clear'),
     url(r'^checkout/$', view='get_cart', name='cart_detail'),
+    url(r'^reviews/add/$', view='review_add', name='review_add'),
+    url(r'^callquery/add/$', view='callquery_add', name='callquery_add'),
 )

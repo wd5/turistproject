@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block breadcrumbs %} - Отзыв о магазине{% endblock %}
+
+{% block content %}
+<h1>Оставьте отзыв</h1>
+<form action="{% url review_add %}" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Отправить" />
+</form>
+{% endblock %}

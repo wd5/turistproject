@@ -2,12 +2,15 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-from reviews.managers import PublicManager
+from romashop.managers import PublicManager
+from datetime import datetime
+
 
 class Review(models.Model):
+
     user = models.ForeignKey(User, verbose_name="Пользователь", blank=True, null=True)
     is_published = models.BooleanField("Опубликовано", default=True)
-    datetime_added = models.DateTimeField(verbose_name='Дата и время', auto_now_add=True)
+    datetime_added = models.DateTimeField(verbose_name='Дата и время', default=datetime.now())
 
     name = models.CharField(verbose_name='Имя', max_length=100)
     text = models.TextField(verbose_name='Отзыв')

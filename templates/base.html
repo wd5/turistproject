@@ -1,4 +1,4 @@
-{% load latest_content thumbnail cart_tags seo_tags %}
+{% load latest_content thumbnail cart_tags seo_tags mptt_tags %}
 
 <!DOCTYPE html>
 <html>
@@ -22,7 +22,7 @@
 <div id="siteslogan">работаем быстро и качественно</div>
 
 <div id="callinfo" class="rounded">Есть вопросы? Звоните<br /> <big><big><strong>+7-987-654-3210</strong></big></big><br />
-<div id="callbutton" class="rounded"><a href="{% url callquery %}">Заказать звонок</a></div>
+<div id="callbutton" class="rounded"><a href="{% url callquery_add %}">Заказать звонок</a></div>
 </div>
 
 <div id="profile">
@@ -61,7 +61,7 @@
 
 <div id="mainbar" class="rounded">
 {% block mainbar %}
-{% load mptt_tags latest_content %}
+
 <h3>Категории</h3>
 <ul>
 {% full_tree_for_model romashop.Category as nodes %}
@@ -96,7 +96,7 @@
 
 <h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2><br />
 
-<img src="{% thumbnail object.images.get_cover_image 100x100 %}" /><br />
+<img src="{% thumbnail object.get_cover_image 160x160 %}" /><br />
 
 <p><span class="description">{{ object.short_description }}</p>
 
@@ -135,7 +135,7 @@
 <div id="reviews">
     <h3>Отзывы</h3>
     <ul>
-    {% get_latest reviews.review 5 as reviews_list %}
+    {% get_latest romashop.review 5 as reviews_list %}
     {% for object in reviews_list %}
     <li><i>{{ object.name }}</i>:<br />{{ object.text }}</li>
     {% endfor %}
