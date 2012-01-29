@@ -165,7 +165,7 @@ PAYMENT_FLAGGED = 6
 
 
 ORDER_STATES = [
-    (SUBMITTED, "Внесен"),
+    (SUBMITTED, "Новый"),
     (PAID, "Оплачен"),
     (SENT, "Отправлен"),
     (CLOSED, "Закрыт"),

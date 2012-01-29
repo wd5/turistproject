@@ -17,6 +17,7 @@ class OrderDetailInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
 
     inlines = [OrderDetailInline,]
+    list_display = ["number", "customer", "date_created", "summary", "status"]
 
 
 class PictureInline(admin.TabularInline):
@@ -29,7 +30,7 @@ class PictureInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
 
     list_display = ["get_cover", "title", "price", "old_price", "is_published"]
-    list_editable = ["title", "price", "old_price", "is_published"]   
+    list_editable = ["title", "price", "old_price", "is_published"]
     inlines = [PictureInline,]
     form = ProductAdminForm
 

@@ -96,20 +96,26 @@ def get_cart(request):
         customer = None
 
     if request.method == 'POST':
-        form = CustomerForm(request.POST)
+        form = CustomerForm(request.POST, instance=customer)
         order_form = OrderForm(request.POST)
-        if form.is_valid(): # All validation rules pass
+        if form.is_valid():
+
+            # SAVE CUSTOMER
             new_customer = form.save(commit=False)
-            if request.user.is_authenticated() and not customer:
+            if request.user.is_authenticated():
                 new_customer.user = request.user
             new_customer.save()
+
             if order_form.is_valid():
+
+                # SAVE ORDER
                 new_order = order_form.save(commit=False)
                 new_order.customer = new_customer
                 new_order.summary = cart.summary()
                 new_order.save()
                 new_order.number = new_order.get_number(new_order.id)
                 new_order.save()
+
                 # SAVE CART TO ORDER DETAIL
                 for item in cart:
                     new_item = OrderDetail()
@@ -120,7 +126,9 @@ def get_cart(request):
                     new_item.total_price = item.total_price
                     new_item.save()
                 cart.clear()
-                return HttpResponseRedirect('/') # TODO THANKS
+
+                return direct_to_template(request, 'romashop/order_thanks.html',{'object':new_order})
+
     else:
         form = CustomerForm(instance=customer)
         order_form = OrderForm()
