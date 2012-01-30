@@ -1,0 +1,243 @@
+/* ========================= LAYOUT ========================== */
+
+body {
+    font-family: Verdana, sans-serif;
+    font-size: 12px;
+    background: #fff;
+    color: #555;
+    margin: 0px auto;
+    width: 960px;
+}
+
+/* TODO: make wrapper */
+
+.clearfix {
+    clear: both;
+}
+
+.rounded {
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+}
+
+#header {
+    margin: 10px auto 5px;
+    clear: both;
+    position: relative;
+    height: 120px;
+}
+
+#sitetitle {
+    position: absolute;
+    top: 2px;
+    left: 0px;
+    width: 290px;
+    line-height: 1;
+    font-size: 250%;
+}
+
+#siteslogan {
+    position: absolute;
+    top: 67px;
+    left: 0px;
+    font-family: Georgia;
+    font-size: 150%;
+    font-style: italic;
+}
+
+#phone {
+    position: absolute;
+    top: 8px;
+    right: 0px;
+    text-align: right;
+    border: 1px solid #999;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.callbutton {
+    margin-top:4px;
+    text-align: center;
+    border: 1px solid black;
+    background: #6af;
+    padding: 4px;
+}
+
+.callbutton a, .callbutton a:visited {
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+#sitemenu {
+    position: absolute;
+    top: 96px;
+    left: 0px;
+    font-family: Verdana;
+    font-size: 130%;
+    background: #6af;
+    width: 100%;
+}
+
+#sitemenu ul {
+    margin: 0px;
+    padding: 6px;
+    list-style-type: none;
+}
+
+#sitemenu ul li {
+    display: inline;
+    margin-right: 4px;
+}
+
+#sitemenu ul li a, #sitemenu ul li a:visited {
+    background: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+#profile {
+
+}
+
+.infobar {
+    background: #ddd;
+    margin: 4px 0;
+    padding: 3px;
+}
+
+#breadcrumbs {
+    margin-bottom: 10px;
+}
+
+#main {
+    background: #fff;
+}
+
+#mainbar {
+    margin-top: 10px;
+    width: 152px;
+    float: left;
+    padding: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border: 1px solid #ccc;
+}
+
+#mainbar h3 {
+    border-bottom: 1px solid #ccc;
+}
+
+#mainbar ul li {
+    list-style-type: disc;
+    margin-left: 14px;
+    margin-bottom: 2px;
+}
+
+#content {
+    background: #fff;
+    width: 504px;
+    float: left;
+    padding: 10px;
+}
+
+#sidebar {
+    width: 152px;
+    float: right;
+    margin-top: 10px;
+    margin-left: 4px;
+    padding: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border: 1px solid #ccc;
+}
+
+#sidebar h3 {
+    border-bottom: 1px solid #ccc;
+}
+
+#copyright {
+    float: left;
+}
+
+#author {
+    float: right;
+}
+
+#product-list {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+#product-list li {
+    list-style-type: none;
+    margin-bottom: 20px;
+}
+
+#product-list h2 {
+    border-bottom: 1px solid #ccc;
+}
+
+/* =========================== DEFAULT ========================== */
+
+a, a:active, a:visited {
+    color: #3366cc;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+h1 {
+    font-size: 175%;
+    color: #1929a5;
+    margin: 2px 0 10px 0;
+    padding: 0;
+}
+h2 {
+    font-size: 150%;
+    color: #333377;
+    margin: 3px 0;
+    padding: 0;
+}
+h3 {
+    font-size: 125%;
+    color: #555555;
+    margin: 2px 0;
+    padding: 0;
+}
+
+h4 {
+    font-size: 115%;
+    color: #555555;
+    margin: 2px 0;
+    padding: 0;
+}
+
+h5 {
+    font-size: 100%;
+    color: #555555;
+    margin: 2px 0;
+    padding: 0;
+}
+
+/* ========================== COMMENTS ========================= */
+
+#id_comment {
+    width: 98%;
+    height: 60px;
+}
+
+/* =========================== SIDEBAR ========================== */
+
+#mainbar ul, #sidebar ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 10px;
+}
