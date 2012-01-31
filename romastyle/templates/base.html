@@ -1,0 +1,160 @@
+{% load latest_content thumbnail cart_tags seo_tags mptt_tags %}
+
+<!DOCTYPE html>
+<html><head>
+<title>{% block title %}{% endblock %}</title>
+<meta charset="UTF-8">
+<meta name="description" content="{% block description %}{% endblock %}" />
+<meta name="keywords" content="{% block keywords %}{% endblock %}" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.snippet.min.js"></script>                         <!-- SNIPPET -->
+<script type="text/javascript" src="{{ STATIC_URL }}js/kickstart.js"></script>                                  <!-- KICKSTART -->
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/kickstart.css" media="all" />                  <!-- KICKSTART -->
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" media="all" />                          <!-- CUSTOM STYLES -->
+{% block extra_head %}{% endblock %}
+</head><body><a id="top-of-page"></a><div id="wrap" class="clearfix">
+<!-- ===================================== END HEADER ===================================== -->
+
+
+<!-- 
+ADD YOU HTML ELEMENTS HERE
+
+Example: 2 Columns
+ -->
+	 
+<div id="headercol" class="col_6">
+
+    <div id="sitetitle">Интернет-магазин NP Tour</div>
+    <div id="siteslogan">Туристическое снаряжение и не только</div>
+
+</div>
+
+
+<div id="headercol" class="col_3">
+
+    <div id="marketplace">...</div>
+
+</div>
+
+
+<div id="headercol" class="col_3">
+
+    <div id="phoneinfo">Есть вопросы? Звоните.</div>
+
+</div>
+
+
+<div id="menucol" class="col_12">
+
+    <!-- Menu Horizontal -->
+    <ul class="menu">
+        <li><a href="/">Главная</a></li>
+        <li><a href="/products/">Товары</a></li>
+        <li><a href="/process/">Оплата и доставка</a></li>
+        <li><a href="/about/">Информация</a>
+            <ul>
+                <li><a href="/about/">О нас</a></li>
+                <li><a href="/warranty/">Гарантии</a></li>
+                <li><a href="/partner/">Партнерам</a></li>
+            </ul>
+        </li>
+        <li><a href="">Контакты</a></li>
+    </ul>
+
+</div>
+
+
+<div id="leftbar" class="col_2">
+
+    <h5>Категории</h5>
+    {% full_tree_for_model romashop.Category as nodes %}
+    <ul>
+    {% recursetree nodes %}
+        <li>
+            <a href="{{ node.get_absolute_url }}">{{ node.name }}</a>
+            {% if not node.is_leaf_node %}
+                <ul class="children">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+    </ul>
+
+</div>
+
+
+<div id="content" class="col_8">
+
+    <ul class="breadcrumbs">
+        <li><a href="/">Главная</a></li>
+        {% block breadcrumbs %}
+        <li><a href="/"></a></li>
+        {% endblock %}
+    </ul>
+
+    {% block content %}
+<h2>Последние поступления</h2>
+{% get_latest_public romashop.Product 5 as last_products %}
+<ul>
+{% for object in last_products %}
+<li>
+
+<h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2><br />
+
+<img src="{% thumbnail object.get_cover_image 160x160 %}" /><br />
+
+<p><span class="description">{{ object.short_description }}</p>
+
+<a href="{{ object.get_absolute_url }}">Подробнее</a> <a href="{% url cart_add object.id 1 %}">Купить</a>
+
+
+</li>
+{% endfor %}
+</ul>
+    {% endblock %}
+
+</div>
+
+
+<div id="sidebar" class="col_2">
+
+    <h5>Профиль</h5>
+    <div id="profile">
+        <ul>
+          
+        {% if not user.is_authenticated %}
+             <li><a href="{% url registration_register %}?next={{ request.path }}">Регистрация</a></li>
+             <li><a href="{% url auth_login %}?next={{ request.path }}">Вход</a></li>
+        {% else %}
+             <span>{{ user.username }}</span>
+             {% if user.is_staff %}<li><a href="{% url admin:index %}">Админка</a></li>{% endif %}
+             <li><a href="{% url auth_logout %}?next={{ request.path }}">Выход</a></li>
+        {% endif %}
+        </ul>
+    </div>
+
+    <h5>Корзина</h5>
+    <ul>
+        <li>Товары: </li>
+        <li>Сумма: </li>
+    </ul>
+
+    <h5>Отзывы</h5>
+    <ul>
+        <li><a href="">Иванов</a><br />Отличный магазин!</li>
+    </ul>
+
+</div>
+
+
+<!-- ===================================== START FOOTER ===================================== -->
+<div class="clear"></div>
+<div id="footer">
+&copy; Copyright 2011–2012 All Rights Reserved. This website was built with <a href="http://www.99lime.com">HTML KickStart</a>
+<a id="link-top" href="#top-of-page">Top</a>
+</div>
+
+</div><!-- END WRAP -->
+</body></html>
