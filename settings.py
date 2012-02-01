@@ -199,7 +199,7 @@ SEO_FOR_MODELS = [
 
 # LOCAL SETTINGS
 import socket
-if socket.gethostname() == 'production':
+if socket.gethostname() == 'hydrogen':
     DEBUG = False
     from password import *
     LOCALSERVER = False
