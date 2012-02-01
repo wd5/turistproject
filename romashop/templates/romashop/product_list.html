@@ -20,7 +20,7 @@
 
 <div class="clearfix">
 <div style="margin-top: 4px; float:left">
-<a href="{% url product_detail object.slug %}">Подробнее</a>&nbsp;&nbsp;<a href="{% url cart_add object.id 1 %}">Купить</a>
+<a class="button" href="{% url product_detail object.slug %}">Подробнее</a>&nbsp;&nbsp;<a class="button red" href="{% url cart_add object.id 1 %}">Купить</a>
 </div>
 
 </div>

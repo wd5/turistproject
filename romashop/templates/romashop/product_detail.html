@@ -12,7 +12,7 @@
 
 <p><img src="{% thumbnail object.get_cover_image 240x240 %}" /><br />
 <p>Цена: <span class="unit-price">{{object.price}} р</span> {% if object.old_price %}<strike>{{object.old_price}} р</strike>{% endif %}</p>
-<p><a href="{% url cart_add object.id 1 %}">Купить</a></p>
+<p><a class="button red" href="{% url cart_add object.id 1 %}">Купить</a></p>
 <p>{{object.short_description}}</p>
 {% if object.long_description %}<p><b>Подробности:</b></p>
 <p>{{object.long_description}}</p>
