@@ -58,17 +58,6 @@ padding:0;
 border:1px solid #ccc;
 }
 
-#sitetitle { font-size: 32px; padding: 10px; margin-top: 6px; margin-bottom: 6px; }
-#siteslogan { font-style: italic; padding-left: 10px; }
-
-#menucol .inner { padding: 0px; }
-#menucol { margin-bottom: -10px; }
-
-#sidebar .inner { padding-left: 0px; padding-right: 0px; }
-
-#leftbar ul { margin-left: 14px; }
-#leftbar ul li ul { margin-left: 12px; }
-
 #footer{
 text-align:center;
 padding:20px;
@@ -92,3 +81,26 @@ text-shadow:0px 1px 1px #fff;
 	-webkit-border-radius:3px;
 	border-radius:3px;
 	}
+
+
+
+#sitetitle { font-size: 32px; padding: 10px; margin-top: 6px; margin-bottom: 6px; }
+#siteslogan { font-style: italic; padding-left: 10px; }
+
+#phoneinfo { text-align: center; }
+#phonebutton { margin-bottom: 0px; }
+
+#menucol .inner { padding: 0px; }
+#menucol { margin-bottom: -10px; }
+
+#sidebar .inner { padding-left: 0px; padding-right: 0px; }
+
+ul { margin-bottom: 10px; }
+ul li { padding: 0px; }
+
+#leftbar ul { margin-left: 14px; }
+#leftbar ul li ul { margin-left: 12px; }
+
+h1 { font-size: 32px; }
+h2 { font-size: 24px; }
+h3 { font-size: 18px; }

@@ -31,16 +31,16 @@ Example: 2 Columns
 </div>
 
 
-<div id="headercol" class="col_3">
+<div id="marketcol" class="col_3">
 
     <div id="marketplace">...</div>
 
 </div>
 
 
-<div id="headercol" class="col_3">
+<div id="phonecol" class="col_3">
 
-    <div id="phoneinfo">Есть вопросы? Звоните.</div>
+    <div id="phoneinfo">Есть вопросы? Звоните.<br /><big><big><b>+7-987-654-3210</b></big></big><br /><a id="phonebutton" class="button blue" href="{% url callquery_add %}">Заказать звонок</a></div>
 
 </div>
 
@@ -51,7 +51,7 @@ Example: 2 Columns
     <ul class="menu">
         <li><a href="/">Главная</a></li>
         <li><a href="/products/">Товары</a></li>
-        <li><a href="/process/">Оплата и доставка</a></li>
+        <li><a href="/payment/">Оплата и доставка</a></li>
         <li><a href="/about/">Информация</a>
             <ul>
                 <li><a href="/about/">О нас</a></li>
@@ -107,7 +107,7 @@ Example: 2 Columns
 
 <p><span class="description">{{ object.short_description }}</p>
 
-<a href="{{ object.get_absolute_url }}">Подробнее</a> <a href="{% url cart_add object.id 1 %}">Купить</a>
+<a class="button" href="{{ object.get_absolute_url }}">Подробнее</a> <a class="button red" href="{% url cart_add object.id 1 %}">Купить</a>
 
 
 </li>
@@ -136,9 +136,10 @@ Example: 2 Columns
     </div>
 
     <h5>Корзина</h5>
-    <ul>
-        <li>Товары: </li>
-        <li>Сумма: </li>
+    <ul>{% get_cart as cart %}
+        <li>Товары: {{ cart.count }}</li>
+        <li>Сумма: {{ cart.summary }} р</li>
+        <a class="button orange" href="/checkout/" style="margin-top:6px; margin-left: -30px;">Оформить заказ</a>
     </ul>
 
     <h5>Отзывы</h5>
