@@ -40,10 +40,57 @@ class CustomIndexDashboard(Dashboard):
             ]
         ))
 
-        # append an app list module for "Administration"
-        self.children.append(modules.AppList(
-            _('Administration'),
+        self.children.append(modules.Group(
+            title="Магазин",
+            display="tabs",
+            children=[
+                modules.ModelList(
+                    'Основное',
+                    ['romashop.models.Product',
+                    'romashop.models.Category',
+                    'romashop.models.Order',
+                    'romashop.models.CallQuery',
+                ]),
+                modules.ModelList(
+                    'Маркетинг',
+                    ['romashop.models.Discount',
+                    'romashop.models.Review',
+                ]),
+                modules.ModelList(
+                    'Настройки',
+                    ['romashop.models.PaymentMethod',
+                    'romashop.models.ShippingMethod',
+                    'romashop.models.Customer',
+                ]),
+            ]
         ))
+
+        self.children.append(modules.Group(
+            title="Сайт",
+            display="tabs",
+            children=[
+                modules.ModelList(
+                    'Страницы',
+                    ['django.contrib.flatpages.models.FlatPage',
+                ]),
+
+                modules.ModelList(
+                    'Настройки',
+                    ['constance.admin.Config',
+                ]),
+                modules.ModelList(
+                    'Пользователи',
+                    ['django.contrib.auth.models.User',
+                    'django.contrib.auth.models.Group',
+                    'registration.models.RegistrationProfile',
+                ]),
+            ]
+        ))
+
+        # append an app list module for "Administration"
+        #self.children.append(modules.AppList(
+        #    _('Administration'),
+        #))
 
 
 class CustomAppIndexDashboard(AppIndexDashboard):

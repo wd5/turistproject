@@ -67,7 +67,7 @@ admin.site.register(OrderDetail)
 admin.site.register(Category, MPTTModelAdmin)
 admin.site.register(PaymentMethod)
 admin.site.register(ShippingMethod)
-#admin.site.register(Discount)
+admin.site.register(Discount)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(CallQuery, CallQueryAdmin)
 
