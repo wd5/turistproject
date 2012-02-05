@@ -245,7 +245,7 @@ class ShippingMethod(models.Model):
 class Discount(models.Model):
 
     title = models.CharField("Название", max_length=70)
-    products = models.ManyToManyField(Product, verbose_name="Продукты")
+    products = models.ManyToManyField(Product, verbose_name=u"Продукты")
     is_global = models.BooleanField("На все продукты", default=False)
     date_start = models.DateTimeField("Дата начала", default=datetime.now)
     date_end = models.DateTimeField("Дата окончания", default=datetime.now)
