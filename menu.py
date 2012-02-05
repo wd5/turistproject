@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 This file was generated with the custommenu management command, it contains
 the classes for the admin menu, you can customize this class as you want.
@@ -19,6 +21,7 @@ class CustomMenu(Menu):
     def __init__(self, **kwargs):
         Menu.__init__(self, **kwargs)
         self.children += [
+            items.MenuItem('Главная', '/'),
             items.MenuItem(_('Dashboard'), reverse('admin:index')),
             items.Bookmarks(),
             items.AppList(
