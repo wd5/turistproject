@@ -298,3 +298,31 @@ class CallQuery(models.Model):
         verbose_name = 'Звонок'
         verbose_name_plural = 'Звонки'
         ordering = ["-datetime_added"]
+
+
+class PopularProduct(models.Model):
+
+    product = models.ForeignKey(Product, verbose_name="Товар", unique=True)
+    position = models.PositiveSmallIntegerField("Позиция", default=0)
+
+    class Meta:
+        verbose_name = 'Популярный товар'
+        verbose_name_plural = 'Популярные товары'
+        ordering = ["position"]
+
+    def __unicode__(self):
+        return "%s (%s)" % (self.product.title, self.position)
+
+
+class FeaturedProduct(models.Model):
+
+    product = models.ForeignKey(Product, verbose_name="Товар", unique=True)
+    position = models.PositiveSmallIntegerField("Позиция", default=0)
+
+    class Meta:
+        verbose_name = 'Особенный товар'
+        verbose_name_plural = 'Особенные товары'
+        ordering = ["position"]
+
+    def __unicode__(self):
+        return "%s (%s)" % (self.product.title, self.position)

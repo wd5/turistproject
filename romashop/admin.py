@@ -4,7 +4,7 @@ from django.contrib import admin
 
 from mptt.admin import MPTTModelAdmin
 
-from romashop.models import Product, Customer, Order, OrderDetail, Category, PaymentMethod, ShippingMethod, Discount, Picture, Review, CallQuery
+from romashop.models import Product, Customer, Order, OrderDetail, Category, PaymentMethod, ShippingMethod, Discount, Picture, Review, CallQuery, PopularProduct, FeaturedProduct
 
 from romashop.forms import ProductAdminForm, PictureAdminForm
 
@@ -70,4 +70,6 @@ admin.site.register(ShippingMethod)
 admin.site.register(Discount)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(CallQuery, CallQueryAdmin)
+admin.site.register(PopularProduct)
+admin.site.register(FeaturedProduct)
 
