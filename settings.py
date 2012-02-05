@@ -202,7 +202,8 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 CONSTANCE_CONFIG = {
     'SITE_TITLE': ('SHOP', 'Site title on the header'),
-    'SITE_SLOGAN': ('best sellers', 'Site slogan on the header'),
+    'SITE_SLOGAN': ('best products', 'Site slogan on the header'),
+    'SITE_PHONE': ('+0-000-000-0000', 'Phone number for your clients'),
 }
 
 ADMIN_TOOLS_MENU = 'app.menu.CustomMenu'
