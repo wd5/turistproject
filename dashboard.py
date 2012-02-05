@@ -40,8 +40,7 @@ class CustomIndexDashboard(Dashboard):
                 ]),
                 modules.ModelList(
                     'Маркетинг',
-                    ['romashop.models.PopularProduct',
-                    'romashop.models.FeaturedProduct',
+                    ['romashop.models.MarketingGroup',
                     'romashop.models.Discount',
                     'romashop.models.Review',
                 ]),

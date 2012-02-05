@@ -53,6 +53,7 @@ class Product(models.Model):
     objects = PublicManager()
     
     class Meta:
+        ordering = ['-id']
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
 
@@ -93,9 +94,10 @@ class Category(MPTTModel):
     position = models.PositiveIntegerField("Позиция", default=0)
 
     class MPTTMeta:
-        order_insertion_by = ['name']
+        order_insertion_by = ['position', 'name']
 
     class Meta:
+        ordering = ['position', 'name']
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
 
@@ -118,11 +120,12 @@ class Picture(models.Model):
     product = models.ForeignKey(Product, verbose_name='Товар')
     image = models.ImageField("Изображение", upload_to='shop_pics/')
     title = models.CharField("Заголовок", max_length=100, blank=True)
-    position = models.IntegerField("Позиция", default=0)
+    position = models.PositiveIntegerField("Позиция", default=0)
 
     objects = PublicManager()
 
     class Meta:
+        ordering = ['position']
         verbose_name = "изображение"
         verbose_name_plural = "изображения"
 
@@ -223,6 +226,7 @@ class PaymentMethod(models.Model):
         return u"%s" % (self.title)
 
     class Meta:
+        ordering = ['position', 'title']
         verbose_name = "Метод оплаты"
         verbose_name_plural = "Методы оплаты"
 
@@ -238,12 +242,14 @@ class ShippingMethod(models.Model):
         return u"%s" % (self.title)
 
     class Meta:
+        ordering = ['position', 'title']
         verbose_name = "Метод доставки"
         verbose_name_plural = "Методы доставки"
 
 
 class Discount(models.Model):
 
+    is_active = models.BooleanField("Активно", default=True)
     title = models.CharField("Название", max_length=70)
     products = models.ManyToManyField(Product, verbose_name=u"Продукты")
     is_global = models.BooleanField("На все продукты", default=False)
@@ -255,7 +261,15 @@ class Discount(models.Model):
     def __unicode__(self):
         return u"%s" % (self.title)
 
+    def is_now(self):
+        date_now = datetime.now()
+        if self.date_start < date_now and self.date_end > date_now:
+            return True
+        else:
+            return False
+
     class Meta:
+        ordering = ['date_end']
         verbose_name = "Скидка"
         verbose_name_plural = "Скидки"
 
@@ -300,29 +314,17 @@ class CallQuery(models.Model):
         ordering = ["-datetime_added"]
 
 
-class PopularProduct(models.Model):
+class MarketingGroup(models.Model):
 
-    product = models.ForeignKey(Product, verbose_name="Товар", unique=True)
+    name = models.CharField("Название", max_length=70, unique=True)
+    slug = models.SlugField(unique=True, max_length=50)
+    products = models.ManyToManyField(Product, verbose_name=u"Продукты")
     position = models.PositiveSmallIntegerField("Позиция", default=0)
 
     class Meta:
-        verbose_name = 'Популярный товар'
-        verbose_name_plural = 'Популярные товары'
+        verbose_name = 'Выделенный товар'
+        verbose_name_plural = 'Выделенные товары'
         ordering = ["position"]
 
     def __unicode__(self):
-        return "%s (%s)" % (self.product.title, self.position)
-
-
-class FeaturedProduct(models.Model):
-
-    product = models.ForeignKey(Product, verbose_name="Товар", unique=True)
-    position = models.PositiveSmallIntegerField("Позиция", default=0)
-
-    class Meta:
-        verbose_name = 'Особенный товар'
-        verbose_name_plural = 'Особенные товары'
-        ordering = ["position"]
-
-    def __unicode__(self):
-        return "%s (%s)" % (self.product.title, self.position)
+        return u"%s" % (self.name)
