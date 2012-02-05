@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 This file was generated with the customdashboard management command, it
 contains the two classes for the main dashboard and app index dashboard.
@@ -38,16 +40,9 @@ class CustomIndexDashboard(Dashboard):
             ]
         ))
 
-        # append an app list module for "Applications"
-        self.children.append(modules.AppList(
-            _('Applications'),
-            exclude=('django.contrib.*',),
-        ))
-
         # append an app list module for "Administration"
         self.children.append(modules.AppList(
             _('Administration'),
-            models=('django.contrib.*',),
         ))
 
 
