@@ -201,9 +201,9 @@ LOGIN_REDIRECT_URL = "/"
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 CONSTANCE_CONFIG = {
-    'SITE_TITLE': ('SHOP', 'Site title on the header'),
-    'SITE_SLOGAN': ('best products', 'Site slogan on the header'),
-    'SITE_PHONE': ('+0-000-000-0000', 'Phone number for your clients'),
+    'SITE_TITLE': ('Сайт', 'Название сайта (отображается в шапке)'),
+    'SITE_SLOGAN': ('лучшие предложения', 'Слоган сайта (отображается в шапке)'),
+    'SITE_PHONE': ('+0-000-000-0000', 'Телефон для ваших клиентов'),
 }
 
 ADMIN_TOOLS_MENU = 'app.menu.CustomMenu'
