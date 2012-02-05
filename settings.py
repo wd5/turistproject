@@ -105,6 +105,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
+    'constance.context_processors.config',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -120,6 +121,10 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'app.urls'
 
 INSTALLED_APPS = (
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -146,6 +151,8 @@ INSTALLED_APPS = (
     #'reviews',
     #'fgallery',
 
+    'constance',
+    'constance.backends.database',
     'seo',
 )
 
@@ -190,6 +197,17 @@ LOGGING = {
 }
 
 LOGIN_REDIRECT_URL = "/"
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+CONSTANCE_CONFIG = {
+    'SITE_TITLE': ('SHOP', 'Site title on the header'),
+    'SITE_SLOGAN': ('best sellers', 'Site slogan on the header'),
+}
+
+ADMIN_TOOLS_MENU = 'app.menu.CustomMenu'
+ADMIN_TOOLS_INDEX_DASHBOARD = 'app.dashboard.CustomIndexDashboard'
+ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'app.dashboard.CustomAppIndexDashboard'
 
 PAGINATION_DEFAULT_PAGINATION = 10
 

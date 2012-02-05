@@ -9,4 +9,6 @@ django-pagination==1.0.7
 django-registration==0.7
 django-seo==0.3.0
 sorl-thumbnail==3.2.5
-django-cart==1.0.1
+#django-cart==1.0.1
+django-constance
+django-picklefield
