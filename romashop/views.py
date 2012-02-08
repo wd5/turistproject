@@ -17,15 +17,24 @@ def product_list(request):
 
 def product_category(request, slug):
 
-    category = Category.objects.get(slug=slug)
+    try:
+        category = Category.objects.get(slug=slug)
+        categories = category.get_ancestors()
+    except:
+        category = None
+        categories = None
     products = Product.objects.published().filter(category=category)
-    return direct_to_template(request, 'romashop/product_list.html', {'object_list': products})
+    return direct_to_template(request, 'romashop/product_list.html', {'object_list': products, 'category': category, 'categories': categories })
 
 
 def product_detail(request, slug):
 
     product = Product.objects.get(slug=slug)
-    return direct_to_template(request, 'romashop/product_detail.html', {'object': product})
+    try:
+        categories = product.category.get_ancestors()
+    except:
+        categories = None
+    return direct_to_template(request, 'romashop/product_detail.html', {'object': product, 'categories': categories})
 
 
 def review_add(request):

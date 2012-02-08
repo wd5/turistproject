@@ -8,6 +8,8 @@
 
 {% block keywords %}{% seo keywords for flatpage %}{% endblock %}
 
+{% block breadcrumbs %}<li><a href="">Страница</a></li>{% endblock %}
+
 {% block content %}
 <h1>{{ flatpage.title }}</h1>
 {{ flatpage.content }}

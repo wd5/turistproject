@@ -3,12 +3,13 @@
 {% load thumbnail pagination_tags %}
 
 {% block breadcrumbs %}
-- Каталог
+{% if category %}<li><a href="{% url product_list %}">Каталог</a></li>{% for item in categories %}<li><a href="{% url product_category item.slug %}">{{ item.name }}</a></li>{% endfor %}<li><a href="{% url product_category category.slug %}">{{ category.name }}</a></li>{% else %}<li><a href="">Каталог</a></li>{% endif %}
 {% endblock %}
 
 {% block content %}
 
-<h1>Каталог</h1>
+<h1>{% if category %}{{ category.name }}{% else %}Каталог{% endif %}</h1>
+
 {% autopaginate object_list %}
 <ul id="product-list">
 {% for object in object_list %}

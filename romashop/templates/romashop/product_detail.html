@@ -3,7 +3,7 @@
 {% load thumbnail %}
 
 {% block breadcrumbs %}
-- Продукт
+{% if object.category %}<li><a href="{% url product_list %}">Каталог</a></li>{% for item in categories %}<li><a href="{% url product_category item.slug %}">{{ item.name }}</a></li>{% endfor %}<li><a href="{% url product_category object.category.slug %}">{{ object.category.name }}</a></li>{% else %}<li><a href="">Товар</a></li>{% endif %}
 {% endblock %}
 
 {% block content %}
