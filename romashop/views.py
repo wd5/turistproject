@@ -20,10 +20,12 @@ def product_category(request, slug):
     try:
         category = Category.objects.get(slug=slug)
         categories = category.get_ancestors()
+        subcategories = category.get_descendants(include_self=True)
     except:
         category = None
         categories = None
-    products = Product.objects.published().filter(category=category)
+        subcategories = None
+    products = Product.objects.published().filter(category__in=subcategories)
     return direct_to_template(request, 'romashop/product_list.html', {'object_list': products, 'category': category, 'categories': categories })
 
 
