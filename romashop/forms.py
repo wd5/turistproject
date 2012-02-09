@@ -32,7 +32,7 @@ class OrderForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        fields = ('shipping_method', 'payment_method')
+        fields = ('comment', 'shipping_method', 'payment_method')
 
 
 class ReviewForm(forms.ModelForm):

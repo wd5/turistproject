@@ -187,6 +187,7 @@ class Order(models.Model):
     payment_method = models.ForeignKey('PaymentMethod', verbose_name="Оплата", blank=True, null=True)
     status = models.PositiveSmallIntegerField("Статус", choices=ORDER_STATES, default=SUBMITTED)
     summary = models.DecimalField("Сумма", max_digits=12, decimal_places=2)
+    comment = models.TextField("Дополнения", blank=True)
 
     def __unicode__(self):
         return u"[%s] %s" % (self.number, self.customer)
