@@ -5,7 +5,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 
-from romashop.managers import PublicManager
+from romashop.managers import PublicManager, DiscountManager
 from mptt.models import MPTTModel, TreeForeignKey
 
 from datetime import datetime
@@ -258,6 +258,8 @@ class Discount(models.Model):
     date_end = models.DateTimeField("Дата окончания", default=datetime.now)
     tax = models.DecimalField("Значение", max_digits=12, decimal_places=2)
     is_percent = models.BooleanField("В процентах", default=False)
+
+    objects = DiscountManager()
 
     def __unicode__(self):
         return u"%s" % (self.title)

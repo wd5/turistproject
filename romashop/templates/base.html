@@ -68,6 +68,7 @@ Example: 2 Columns
 <div id="leftbar" class="col_2">
 
     <h5>Категории</h5>
+    <ul><li><a href="{% url discount_list %}">Скидки</a></li></ul>
     {% full_tree_for_model romashop.Category as nodes %}
     <ul>
     {% recursetree nodes %}

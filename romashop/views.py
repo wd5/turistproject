@@ -5,7 +5,7 @@
 from django.views.generic.simple import direct_to_template
 from django.http import HttpResponse, HttpResponseRedirect
 from cart import Cart
-from romashop.models import Product, Category, Customer, OrderDetail, Review
+from romashop.models import Product, Category, Customer, OrderDetail, Review, Discount
 from romashop.forms import CustomerForm, OrderForm, ReviewForm, CallQueryForm
 
 
@@ -37,6 +37,18 @@ def product_detail(request, slug):
     except:
         categories = None
     return direct_to_template(request, 'romashop/product_detail.html', {'object': product, 'categories': categories})
+
+
+def discount_list(request):
+
+    discounts = Discount.objects.all()
+    return direct_to_template(request, 'romashop/discount_list.html', {'object_list': discounts})
+
+
+def discount_detail(request, slug):
+
+    discount = Discount.objects.get(slug=slug)
+    return direct_to_template(request, 'romashop/discount_detail.html', {'discount': discount})
 
 
 def review_add(request):
