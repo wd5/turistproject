@@ -254,7 +254,6 @@ class Discount(models.Model):
     title = models.CharField("Название", max_length=70)
     slug = models.SlugField(unique=True, max_length=50)
     products = models.ManyToManyField(Product, verbose_name=u"Продукты")
-    is_global = models.BooleanField("На все продукты", default=False)
     date_start = models.DateTimeField("Дата начала", default=datetime.now)
     date_end = models.DateTimeField("Дата окончания", default=datetime.now)
     tax = models.DecimalField("Значение", max_digits=12, decimal_places=2)
