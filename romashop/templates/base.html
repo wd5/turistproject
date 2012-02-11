@@ -33,7 +33,15 @@ Example: 2 Columns
 
 <div id="marketcol" class="col_3">
 
-    <div id="marketplace">...</div>
+    <div id="marketplace">
+    {% get_latest romashop.Discount 5 as discount_list %}
+    Спецпредложение:<br />
+    {% if discount_list.count > 0 %}
+    <a href="{% url product_detail discount_list.0.products.all.0.slug %}">{{ discount_list.0.products.all.0.title }}</a>
+    {% endif %}
+    <a href="{% url discount_detail discount_list.0.slug %}">Подробности</a>
+
+    </div>
 
 </div>
 

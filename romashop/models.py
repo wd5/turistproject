@@ -81,6 +81,15 @@ class Product(models.Model):
             return None
     get_cover.allow_tags = True
 
+    def get_price(self):
+        price = self.price
+        for discount in self.discount_set.all():
+            if discount.is_percent:
+                price = price - price * discount.tax / 100 # TODO: ROUND
+            else:
+                price = price - discount.tax
+        return "%.2f" % (price )
+
     @models.permalink
     def get_absolute_url(self):
         return ('product_detail', [unicode(self.slug)])
@@ -275,6 +284,10 @@ class Discount(models.Model):
         ordering = ['date_end']
         verbose_name = "Скидка"
         verbose_name_plural = "Скидки"
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('discount_detail', [unicode(self.slug)])
 
 
 class Review(models.Model):
