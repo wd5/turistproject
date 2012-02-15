@@ -88,7 +88,17 @@ class Product(models.Model):
                 price = price - price * discount.tax / 100 # TODO: ROUND
             else:
                 price = price - discount.tax
-        return "%.2f" % (price )
+        return "%.2f" % (price)
+
+    def get_oldprice(self):
+        old_price = self.old_price
+        if self.price != self.get_price(): # have discount
+            old_price = self.price
+            return "%.2f" % (old_price)
+        elif old_price:
+            return "%.2f" % (old_price)
+        else:
+            return None
 
     @models.permalink
     def get_absolute_url(self):

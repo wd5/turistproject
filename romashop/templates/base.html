@@ -12,7 +12,13 @@
 <script type="text/javascript" src="{{ STATIC_URL }}js/kickstart.js"></script>                                  <!-- KICKSTART -->
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/kickstart.css" media="all" />                  <!-- KICKSTART -->
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" media="all" />                          <!-- CUSTOM STYLES -->
-{% block extra_head %}{% endblock %}
+{% block extra_head %}
+
+<style type="text/css">@import "{{ STATIC_URL }}js/jquery.countdown.css";</style> 
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.countdown.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.countdown-ru.js"></script>
+
+{% endblock %}
 </head><body><a id="top-of-page"></a><div id="wrap" class="clearfix">
 <!-- ===================================== END HEADER ===================================== -->
 
@@ -34,12 +40,6 @@ Example: 2 Columns
 <div id="marketcol" class="col_3">
 
     <div id="marketplace">
-    {% get_latest romashop.Discount 5 as discount_list %}
-    Спецпредложение:<br />
-    {% if discount_list.count > 0 %}
-    <a href="{% url product_detail discount_list.0.products.all.0.slug %}">{{ discount_list.0.products.all.0.title }}</a>
-    {% endif %}
-    <a href="{% url discount_detail discount_list.0.slug %}">Подробности</a>
 
     </div>
 
@@ -104,6 +104,50 @@ Example: 2 Columns
     </ul>
 
     {% block content %}
+
+    {% get_latest romashop.Discount 5 as discount_list %}
+    {% if discount_list.count > 0 and discount_list.0.products.all.0 %}
+        <h2>Специальное предложение</h2>
+        
+        <div class="col_1"></div>
+        <div class="col_10">
+
+            {% with discount_list.0.products.all.0 as object %}
+        <div class="col_5">
+            <h2><a href="{% url product_detail object.slug %}">{{ object.title }}</a></h2>
+            <a href="{% url product_detail object.slug %}"><img src="{% thumbnail object.get_cover_image 200x200 %}" /></a>
+
+            </div><div class="col_7" style="padding-top: 10px;">
+
+<p>До конца акции:</p>
+
+            <p><div id="countdown" style="margin-bottom: 50px;">До {{ discount_list.0.date_end }}</div></p>
+<script type="text/javascript">
+    var yy = {{ discount_list.0.date_end|date:"Y" }}
+    var mm = {{ discount_list.0.date_end|date:"m" }} - 1;
+    var dd = {{ discount_list.0.date_end|date:"d"}}
+    var hh = {{ discount_list.0.date_end|date:"H"}}
+    var min = {{ discount_list.0.date_end|date:"i"}}
+    var sec = {{ discount_list.0.date_end|date:"s"}}
+    var selected_date = new Date(yy,mm,dd,hh,min,sec);
+
+$('#countdown').countdown({until: selected_date});
+</script>
+
+            <p>Цена: <span class="unit-price">{{object.get_price}} р</span> {% if object.get_oldprice %}<strike>{{object.get_oldprice}} р</strike>{% endif %}</p>
+
+            <p><span class="description">{{ object.short_description }}</p>
+
+            <p><a class="button" href="{{ object.get_absolute_url }}">Подробнее</a> <a class="button red" href="{% url cart_add object.id 1 %}">Купить</a></p>
+        <p><a href="{% url discount_list %}">Все скидки</a></p>
+            </div>
+            {% endwith %}
+
+        </div>
+        <div class="clearfix"></div>
+    {% endif %}
+
+
 <h2>Последние поступления</h2>
 {% get_latest_public romashop.Product 5 as last_products %}
 <ul>
