@@ -39,7 +39,7 @@ class ReviewForm(forms.ModelForm):
 
     class Meta:
         model = Review
-        fields = ('name','email','text')
+        fields = ('name','city','email','text')
 
 
 class CallQueryForm(forms.ModelForm):

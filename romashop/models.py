@@ -307,6 +307,7 @@ class Review(models.Model):
     datetime_added = models.DateTimeField(verbose_name='Дата и время', default=datetime.now())
 
     name = models.CharField(verbose_name='Имя', max_length=100)
+    city = models.CharField(verbose_name='Город', max_length=100)
     text = models.TextField(verbose_name='Отзыв')
     email = models.CharField(verbose_name='E-mail', max_length=100, blank=True)
     link = models.CharField(verbose_name='Ссылка', max_length=100, blank=True)
