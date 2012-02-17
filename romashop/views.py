@@ -134,6 +134,14 @@ def get_cart(request):
                 # SAVE ORDER
                 new_order = order_form.save(commit=False)
                 new_order.customer = new_customer
+
+                new_order.cust_name = new_customer.name
+                new_order.cust_email = new_customer.email
+                new_order.cust_phone = new_customer.phone
+                new_order.cust_city = new_customer.city
+                new_order.cust_postcode = new_customer.postcode
+                new_order.cust_address = new_customer.address
+
                 new_order.summary = cart.summary()
                 new_order.save()
                 new_order.number = new_order.get_number(new_order.id)

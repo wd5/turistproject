@@ -200,12 +200,21 @@ ORDER_STATES = [
 class Order(models.Model):
 
     customer = models.ForeignKey(Customer)
+
     number = models.CharField("Номер", max_length=70, default='0')
     date_created = models.DateTimeField("Дата создания", default=datetime.now())
     shipping_method = models.ForeignKey('ShippingMethod', verbose_name="Доставка", blank=True, null=True)
     payment_method = models.ForeignKey('PaymentMethod', verbose_name="Оплата", blank=True, null=True)
     status = models.PositiveSmallIntegerField("Статус", choices=ORDER_STATES, default=SUBMITTED)
     summary = models.DecimalField("Сумма", max_digits=12, decimal_places=2)
+
+    cust_name = models.CharField("ФИО", max_length=100)
+    cust_email = models.EmailField("Email")
+    cust_phone = models.CharField("Телефон", max_length=50)
+    cust_city = models.CharField("Город", max_length=50)
+    cust_postcode = models.CharField("Индекс", max_length=50)
+    cust_address = models.CharField("Адрес", max_length=100)
+
     comment = models.TextField("Дополнения", blank=True)
 
     def __unicode__(self):
