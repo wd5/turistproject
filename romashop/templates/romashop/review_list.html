@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load thumbnail pagination_tags %}
+
+{% block breadcrumbs %}
+<li><a href="">Отзывы</a></li>
+{% endblock %}
+
+{% block content %}
+
+    <h1>Отзывы</h1>
+    <ul>
+        {% for object in object_list %}
+        <li><a href="{{ object.link }}">{{ object.name }}</a>{% if object.image %}<br /><img src="{% thumbnail object.image 60x60 %}" /><br />{% endif %} ({{ object.city }})<br /><i>{{ object.text }}</i></li>
+        {% endfor %}
+        <a class="button" href="{% url review_add %}" style="margin-top:6px; margin-left: -30px;">Оставить отзыв</a>
+    </ul>
+
+{% paginate %}
+
+{% endblock %}
