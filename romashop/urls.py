@@ -9,6 +9,7 @@ urlpatterns = patterns('romashop.views',
     url(r'^discounts/(?P<slug>\w+)/$', view='discount_detail', name='discount_detail'),
 
     url(r'^callquery/add/$', view='callquery_add', name='callquery_add'),
+    url(r'^reviews/$', view='review_list', name='review_list'),
     url(r'^reviews/add/$', view='review_add', name='review_add'),
 
     url(r'^cart/add/(?P<product_id>\d+)/(?P<quantity>\d+)/$', view='add_to_cart', name='cart_add'),

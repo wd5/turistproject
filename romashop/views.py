@@ -44,6 +44,11 @@ def discount_list(request):
     discounts = Discount.objects.all()
     return direct_to_template(request, 'romashop/discount_list.html', {'object_list': discounts})
 
+def review_list(request):
+
+    reviews = Review.objects.all()
+    return direct_to_template(request, 'romashop/review_list.html', {'object_list': reviews})
+
 
 def discount_detail(request, slug):
 
