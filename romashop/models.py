@@ -91,7 +91,9 @@ class Product(models.Model):
         return "%.2f" % (price)
 
     def get_oldprice(self):
-        if self.price != self.get_price(): # have discount
+        pr = "%.2f" % (self.price)
+        pr2 = self.get_price()
+        if pr != pr2: # have discount
             old_price = self.price
             return "%.2f" % (old_price)
         elif self.old_price:
