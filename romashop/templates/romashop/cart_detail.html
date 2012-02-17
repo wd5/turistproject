@@ -11,6 +11,7 @@
     <h1>Ваша корзина</h1>
     <table>
         <tr>
+            <th></th>
             <th width=300>Наименование</th>
             <th>Цена</th>
             <th width=20>X</th>
@@ -19,8 +20,8 @@
         </tr>
         {% for item in cart %}
         <tr>
-            <td>{{ item.product.title }}</td>
-            <td>{{ item.product.price }}</td>
+            <td><img src="{% thumbnail item.product.get_cover_image 100x100 %}" /></td><td>{{ item.product.title }}</td>
+            <td>{{ item.product.get_price }}</td>
             <td>{{ item.quantity }}</td>
             <td>{{ item.total_price }}</td>
             <td><a href="{% url cart_remove item.product.id %}">Удалить</a></td>

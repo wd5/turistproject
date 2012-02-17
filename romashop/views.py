@@ -82,7 +82,7 @@ def add_to_cart(request, product_id, quantity):
     product = Product.objects.get(id=product_id)
     cart = Cart(request)
     try:
-        cart.add(product, product.price, quantity)
+        cart.add(product, product.get_price(), quantity)
     except:
         pass
     return HttpResponseRedirect('/checkout/')
