@@ -17,7 +17,7 @@ class OrderDetailInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
 
     inlines = [OrderDetailInline,]
-    list_display = ['number', 'customer', 'date_created', 'summary', 'status']
+    list_display = ['number', 'cust_name', 'date_created', 'summary', 'status']
 
 
 class PictureInline(admin.TabularInline):
