@@ -138,6 +138,7 @@ INSTALLED_APPS = (
     'registration',
     'sorl.thumbnail',
     'pagination',
+    'watermarker',
 
     'romastyle',
     'dbtemplates',
@@ -209,6 +210,11 @@ CONSTANCE_CONFIG = {
 ADMIN_TOOLS_MENU = 'app.menu.CustomMenu'
 ADMIN_TOOLS_INDEX_DASHBOARD = 'app.dashboard.CustomIndexDashboard'
 ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'app.dashboard.CustomAppIndexDashboard'
+
+THUMBNAIL_ENGINE = 'watermarker.sorl_engine.WatermarkEngine'
+WATERMARK_OPTIONS = {'font_scale': 0.05, 'font_path': 'Tahoma'} # Any other options from watermark function
+WATERMARK_MIN_SIZE = 50 #Minimum image size (max(height, width)) to add watermark
+WATERMARK_FORCE = u'watermark text' # Add watermark to all images except less than WATERMARK_MIN_SIZE
 
 PAGINATION_DEFAULT_PAGINATION = 10
 
