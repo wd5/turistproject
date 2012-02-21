@@ -45,6 +45,10 @@ class CategoryAdmin(MPTTModelAdmin):
     list_display = ['name', 'position']
     list_editable = ['position']
 
+    def save_model(self, request, obj, form, change):
+        Category.tree.rebuild()
+        obj.save()
+
     def save_formset(self, request, form, formset, change):
         Category.tree.rebuild()
 
